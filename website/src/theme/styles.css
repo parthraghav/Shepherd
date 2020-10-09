@@ -1,0 +1,10 @@
+:root {
+  --green: #0bf59b;
+  --yellow: #fff729;
+  --black: #000000;
+  --gray: #7c7c7a;
+  --primary-1: var(--yellow);
+  --primary-2: var(--green);
+  --primary-text-color: var(--black);
+  --secondary-text-color: var(--gray);
+}
