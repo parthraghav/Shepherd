@@ -1,22 +1,15 @@
 /* Responsive Media Queries */
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .app {
-    flex-direction: column;
-  }
-  .web-bipage {
-    flex: auto !important;
-    height: auto !important;
-  }
-}
-
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 767.99px) {
   .app {
+    display: block !important;
+    height: auto !important;
     flex-direction: column;
+    flex-flow: column;
   }
   .web-bipage {
-    flex: 0;
+    height: fit-content !important;
   }
 }
 
@@ -24,6 +17,10 @@
 @media only screen and (min-width: 768px) {
   .app {
     flex-direction: row;
+  }
+  .web-bipage {
+    flex: 1 !important;
+    height: 100vh !important;
   }
 }
 
@@ -43,45 +40,11 @@
   flex-wrap: wrap;
 }
 
-.home-page-container,
-.nav-page-container {
+.web-bipage {
   flex: 1;
   height: 100vh;
 }
 
 .home-page-container {
   background-color: var(--empty-background-color);
-}
-
-/* Nav Page Styles */
-.nav-page-container {
-  background-color: var(--primary-2);
-  overflow-y: overlay;
-}
-.nav-bar {
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--primary-2);
-  padding: 2em;
-  margin: 1em;
-  box-sizing: border-box;
-  border-radius: 1em;
-}
-.nav-bar a {
-  font-weight: bold;
-  margin: 0.3em;
-  cursor: pointer;
-  color: var(--translucent-dark-text-color);
-  text-decoration: none;
-}
-.nav-bar a.focused-link,
-.nav-bar a.active-link {
-  color: var(--primary-text-color);
-}
-.pagelet-container {
-  box-sizing: border-box;
-  margin: 1em 4em;
-  border-radius: 1em;
-  padding: 2em;
-  background: var(--empty-background-color);
 }
