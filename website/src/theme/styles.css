@@ -3,8 +3,19 @@
   --yellow: #fff729;
   --black: #000000;
   --gray: #7c7c7a;
+  --white: #ffffff;
   --primary-1: var(--yellow);
   --primary-2: var(--green);
   --primary-text-color: var(--black);
   --secondary-text-color: var(--gray);
+  --translucent-light-text-color: rgba(255, 255, 255, 0.34);
+  --translucent-dark-text-color: rgba(0, 0, 0, 0.34);
+  --empty-background-color: var(--white);
+}
+
+*::-webkit-scrollbar * {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1) !important;
 }
