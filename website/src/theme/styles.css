@@ -11,6 +11,7 @@
   --translucent-light-text-color: rgba(255, 255, 255, 0.34);
   --translucent-dark-text-color: rgba(0, 0, 0, 0.34);
   --empty-background-color: var(--white);
+  --dark-background-color: var(--black);
 }
 
 *::-webkit-scrollbar * {
