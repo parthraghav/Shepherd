@@ -1,9 +1,12 @@
 /* Nav Page Styles */
 .nav-page-container {
   display: flex;
+  position: relative;
   flex-direction: column;
+  align-items: center;
   background-color: var(--primary-2);
   overflow-y: overlay;
+  border-radius: 0.4em;
 }
 .nav-bar {
   display: flex;
@@ -13,6 +16,23 @@
   margin: 1em;
   box-sizing: border-box;
   border-radius: 1em;
+  width: 100%;
+  transition: width 2s, position 1s;
+}
+.nav-bar.floating {
+  width: fit-content !important;
+  position: fixed;
+  background: var(--black);
+  color: var(--primary-2);
+}
+.nav-bar.floating a {
+  color: var(--primary-2);
+  opacity: 0.6;
+}
+.nav-bar.floating a.focused-link,
+.nav-bar.floating a.active-link {
+  color: var(--primary-2);
+  opacity: 1;
 }
 .nav-bar a {
   font-weight: bold;
