@@ -40,3 +40,11 @@ export const ProtectedRoute = ({
     />
   );
 };
+
+export const ProxyRoute = ({ path, to }: any) => {
+  return (
+    <Route path={path}>
+      <Redirect to={to} />
+    </Route>
+  );
+};
