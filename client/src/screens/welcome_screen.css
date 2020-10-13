@@ -1,0 +1,38 @@
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+}
+.welcome-box {
+  background: var(--primary-1);
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2em;
+  border-radius: 1em;
+  transition: flex 10s ease-out;
+}
+.welcome-desc-container {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+  padding: 3em;
+}
+.welcome-logo-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1em;
+  transition: flex 10s ease-out;
+  max-height: none;
+}
+.welcome-screen.progress .welcome-logo-container {
+  max-height: 4em;
+}
+.welcome-screen.progress .welcome-logo-container > * {
+  transform: scale(0.6);
+}
