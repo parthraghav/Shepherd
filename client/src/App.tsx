@@ -6,10 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { PrivateRoute, ProxyRoute, PublicRoute } from "./routes";
-
-const WelcomeScreen = () => <h1>Welcome Screen</h1>;
-const HomeScreen = () => <h1>Home Screen</h1>;
-const SettingScreen = () => <h1>Setting Screen</h1>;
+import { HomeScreen, SettingScreen, WelcomeScreen } from "./screens";
 
 function App() {
   return (
