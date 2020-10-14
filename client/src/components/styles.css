@@ -156,3 +156,41 @@
     var(--border-weight) calc(var(--dash-size) + var(--gap-size)),
     var(--border-weight) var(--dash-size);
 }
+
+/* vivian.box.tsx */
+
+.vivian-box-wrapper {
+}
+.vivian-box-container {
+  padding: 2em 1em 3em 1em;
+  position: relative;
+  flex: 1;
+  max-height: 8em;
+  border-radius: 1em;
+}
+.vivian-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.vivian-content-wrapper > span.text {
+  font-weight: 600;
+}
+.vivian-content-wrapper > .heading {
+  font-weight: 800;
+}
+.vivian-iconic-button {
+  position: absolute;
+  bottom: 0;
+  margin: 0px auto;
+  transform: translate(0, 50%);
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  font-size: 2em;
+  padding: 0.5em;
+  border-radius: 0.4em;
+}
