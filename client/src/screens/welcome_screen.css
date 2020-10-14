@@ -27,12 +27,23 @@
   justify-content: flex-end;
   align-items: center;
   padding: 1em;
-  transition: flex 10s ease-out;
-  max-height: none;
+  transition: justify-content 1s ease-in, max-height 1s ease-out;
+  max-height: 50%;
 }
 .welcome-screen.progress .welcome-logo-container {
   max-height: 4em;
+  justify-content: center;
 }
 .welcome-screen.progress .welcome-logo-container > * {
   transform: scale(0.6);
+}
+.welcome-progress-desc-container {
+  text-align: center;
+  font-weight: 500;
+  padding: 1em;
+}
+.welcome-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
