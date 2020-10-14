@@ -194,3 +194,31 @@
   padding: 0.5em;
   border-radius: 0.4em;
 }
+
+/* transaction_box.css */
+
+.transaction-box {
+  flex: 1;
+  display: flex;
+  margin: 0.5em 0;
+  align-items: center;
+  padding: 1em;
+  border-radius: 1em;
+}
+.transaction-box .transaction-info {
+  flex: 1;
+}
+.transaction-box .transaction-info > *:first-child {
+  font-size: 0.8em;
+  font-weight: 500;
+  opacity: 0.4;
+  text-transform: uppercase;
+}
+.transaction-box .transaction-info > *:last-child {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+.transaction-box .transaction-amount {
+  font-weight: 700;
+  font-size: 1.2em;
+}
