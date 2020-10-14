@@ -18,7 +18,13 @@
       "@components": ["components/index.ts"],
       "@components/*": ["components/*"],
       "@screens": ["screens/index.ts"],
-      "@screens/*": ["screens/*"]
+      "@screens/*": ["screens/*"],
+      "@models": ["models/index.ts"],
+      "@models/*": ["models/*"],
+      "@data": ["data/index.ts"],
+      "@data/*": ["data/*"],
+      "@core": ["core/index.ts"],
+      "@core/*": ["core/*"]
     },
     "baseUrl": "src"
   },
