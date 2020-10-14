@@ -21,3 +21,138 @@
   font-weight: 600;
   font-size: 1.2em;
 }
+
+/* loader.tsx */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  border-top: 17px solid var(--dark-background-color);
+  background: var(--empty-background-color);
+  transform: rotate(180deg);
+  transition: 0.1s transform, 0.5s background, 0.5s border, 0.5s border-radius,
+    0.5s transform;
+}
+.loader > * {
+  transition: 0.5s transform;
+}
+.loader:not(.finished) > * {
+  transform: scale(0.01);
+}
+
+.loader.animated-progress {
+  animation: animated-progress 5s infinite;
+}
+.loader.finished {
+  background: var(--primary-2);
+  border-radius: 1em;
+  border: none;
+  transform: rotate(0deg);
+}
+.loader.finished > * {
+  transform: scale(1.5);
+}
+
+@keyframes animated-progress {
+  0% {
+    transform: rotate(180deg);
+  }
+  25% {
+    transform: rotate(220deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(140deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.loader-legacy {
+  --border-color: var(--dark-background-color);
+  --border-weight: 5px;
+  --dash-size: 1px;
+  --gap-size: 1px;
+
+  position: relative;
+  margin: 60px;
+  width: 4em;
+  height: 4em;
+  background: var(--empty-background-color);
+}
+
+.loader-legacy:hover {
+  --border-color: #f09;
+  --border-weight: 5px;
+  --dash-size: 20px;
+  --gap-size: 20px;
+}
+
+.loader-legacy:after {
+  transition: all 0.6s ease;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, var(--border-color) 100%, transparent 100%)
+      top left no-repeat,
+    linear-gradient(
+        90deg,
+        transparent calc(var(--gap-size) / 2),
+        var(--border-color) calc(var(--gap-size) / 2),
+        var(--border-color) calc(var(--gap-size) / 2 + var(--dash-size)),
+        transparent calc(var(--gap-size) / 2 + var(--dash-size))
+      )
+      top center repeat-x,
+    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) top right
+      no-repeat,
+    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) top left
+      no-repeat,
+    linear-gradient(
+        0deg,
+        transparent calc(var(--gap-size) / 2),
+        var(--border-color) calc(var(--gap-size) / 2),
+        var(--border-color) calc(var(--gap-size) / 2 + var(--dash-size)),
+        transparent calc(var(--gap-size) / 2 + var(--dash-size))
+      )
+      center left repeat-y,
+    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) bottom
+      left no-repeat,
+    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) bottom
+      left no-repeat,
+    linear-gradient(
+        90deg,
+        transparent calc(var(--gap-size) / 2),
+        var(--border-color) calc(var(--gap-size) / 2),
+        var(--border-color) calc(var(--gap-size) / 2 + var(--dash-size)),
+        transparent calc(var(--gap-size) / 2 + var(--dash-size))
+      )
+      bottom center repeat-x,
+    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) bottom
+      right no-repeat,
+    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) top right
+      no-repeat,
+    linear-gradient(
+        0deg,
+        transparent calc(var(--gap-size) / 2),
+        var(--border-color) calc(var(--gap-size) / 2),
+        var(--border-color) calc(var(--gap-size) / 2 + var(--dash-size)),
+        transparent calc(var(--gap-size) / 2 + var(--dash-size))
+      )
+      center right repeat-y,
+    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) bottom
+      right no-repeat;
+  background-size: var(--dash-size) var(--border-weight),
+    calc(var(--dash-size) + var(--gap-size)) var(--border-weight),
+    var(--dash-size) var(--border-weight), var(--border-weight) var(--dash-size),
+    var(--border-weight) calc(var(--dash-size) + var(--gap-size)),
+    var(--border-weight) var(--dash-size);
+}
