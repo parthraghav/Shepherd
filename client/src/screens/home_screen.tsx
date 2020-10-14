@@ -1,8 +1,10 @@
 import React from "react";
 import Screen from "./screen";
 import "./home_screen.css";
-import { Logo, VivianBox } from "@components";
+import { Logo, TransactionBox, VivianBox } from "@components";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
+import Transactions from "../data/transactions";
+
 const SummaryVivianBox = (props: any) => (
   <VivianBox {...props} icon={faSmile} primaryColor="1">
     <span className="text">We have redistributed</span>
@@ -21,7 +23,11 @@ const HomeScreen = () => {
           <Logo />
         </div>
         <SummaryVivianBox />
-        <div className=""></div>
+        <div className="">
+          {Transactions.map((transaction) => (
+            <TransactionBox key={transaction.uuid} data={transaction} />
+          ))}
+        </div>
       </div>
     </Screen>
   );
