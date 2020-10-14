@@ -1,0 +1,23 @@
+.home-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  padding: 1em;
+}
+
+.summary-heading {
+  display: flex;
+  align-items: center;
+}
+.summary-heading * {
+  padding: 0.1em;
+}
+.summary-heading .currency {
+  font-size: 1em;
+  opacity: 0.5;
+}
+
+.summary-heading .amount {
+  font-size: 2em;
+}
