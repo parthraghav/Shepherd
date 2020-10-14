@@ -4,6 +4,7 @@ import { PrivateRoute, ProxyRoute, PublicRoute } from "./routes";
 import { HomeScreen, SettingScreen, WelcomeScreen } from "./screens";
 import { Transition } from "react-transition-group";
 import "./theme/styles.css";
+import "./theme/shared.css";
 
 const routes = [
   { path: "/welcome", component: WelcomeScreen, routeType: PublicRoute },

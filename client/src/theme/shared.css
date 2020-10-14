@@ -1,0 +1,12 @@
+/* Shared styles across all screens and components */
+.app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  max-height: 4em;
+}
+/* for the logo */
+.app-header h1 {
+  transform: scale(0.7);
+}
