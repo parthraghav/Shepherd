@@ -67,7 +67,7 @@ const WelcomeScreen = ({ shouldRender }: any) => {
       setWelcomeState(WelcomeState.Finished);
       setTimeout(() => {
         playUnmountAnimation(() => history.push("/home"));
-      });
+      }, 1000);
     }, 2000);
   };
   return (
