@@ -167,6 +167,7 @@
   flex: 1;
   max-height: 8em;
   border-radius: 1em;
+  margin-bottom: 4em;
 }
 .vivian-content-wrapper {
   display: flex;
@@ -221,4 +222,33 @@
 .transaction-box .transaction-amount {
   font-weight: 700;
   font-size: 1.2em;
+}
+
+/* bottom_sheet.tsx */
+
+.bottom-sheet-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.bottom-sheet-background-overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  opacity: 0.94;
+}
+
+.bottom-sheet {
+  flex: 1;
+  position: absolute;
+  height: fit-content;
+  width: 100vw;
+  padding: 1em;
+  bottom: 0;
+  border-radius: 1em;
+  box-sizing: border-box;
 }
