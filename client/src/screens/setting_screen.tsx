@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Screen from "./screen";
 import "./setting_screen.css";
-import { Button, Logo, VivianBox } from "@components";
+import { Button, FormButton, FormInput, Logo, VivianBox } from "@components";
 import { faGlobeAmericas } from "@fortawesome/free-solid-svg-icons";
 
 const WelcomeVivianBox = (props: any) => (
@@ -21,7 +21,36 @@ const SettingScreen = () => {
           <Logo />
         </div>
         <WelcomeVivianBox />
-        <div className=""></div>
+        <div className="">
+          <FormButton
+            label="Payment Method"
+            prompt="Ending in 3982"
+            hint={<span>image</span>}
+          />
+          <FormInput
+            label="Your Need This Week"
+            prompt="What’s your need?"
+            prefix="USD"
+            placeholder="56"
+          />
+          <div>
+            <span>
+              Please show your demonstrated need. WWR is a decentralized mutual
+              aid platform, so all records are public. Please don’t lie!
+            </span>
+          </div>
+          <FormInput
+            label="Your Donation"
+            prompt="Choose a weekly donation"
+            prefix="USD"
+            placeholder="5"
+          />
+          <FormInput
+            label="Your Name"
+            prompt="What's your name?"
+            placeholder="Parth"
+          />
+        </div>
         <div className="setting-button-group">
           <Button label="Need help?" />
           <Button label="How does it work?" />
