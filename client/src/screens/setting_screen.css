@@ -1,0 +1,21 @@
+.setting-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  padding: 1em;
+}
+
+.welcome-heading {
+  font-size: 2em;
+}
+
+.setting-button-group {
+  background: var(--primary-1);
+  padding: 2em;
+  border-radius: 1em;
+}
+
+.setting-button-group > * + * {
+  margin-top: 0.8em;
+}
