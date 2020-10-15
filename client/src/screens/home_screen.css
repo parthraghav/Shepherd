@@ -21,3 +21,60 @@
 .summary-heading .amount {
   font-size: 2em;
 }
+
+.transaction-bottom-sheet {
+}
+.transaction-bottom-sheet .transaction-descriptor {
+  padding: 1em;
+  font-size: 1.2em;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+}
+.transaction-bottom-sheet .transaction-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.transaction-bottom-sheet .summary-row {
+  display: flex;
+  align-items: center;
+}
+.transaction-bottom-sheet .summary-row span:first-child {
+  font-size: 1.4em;
+  padding: 0em 0.5em;
+}
+.transaction-bottom-sheet .summary-row span:last-child {
+}
+.transaction-bottom-sheet .transaction-info .transaction-date {
+  font-size: 0.8em;
+  font-weight: 500;
+  opacity: 0.4;
+  text-transform: uppercase;
+}
+
+.transaction-bottom-sheet .transaction-info .transaction-desc {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.transaction-bottom-sheet .transaction-info .transaction-uuid {
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+.transaction-bottom-sheet .transaction-charge {
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.transaction-info-details {
+  flex: 1;
+}
+.transaction-info-details > * {
+  margin-top: 0.1em;
+  margin-bottom: 0.2em;
+}
+.transaction-bottom-sheet .transaction-summary {
+  margin: 1.5em 0em;
+}
