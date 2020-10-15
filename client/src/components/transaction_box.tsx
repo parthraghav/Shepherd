@@ -8,6 +8,7 @@ export const TransactionBox = ({ data: transaction, ...rest }: any) => {
     transaction.type == "Donated" ? "You → Public" : "Public → You";
   return (
     <div
+      {...rest}
       className="transaction-box"
       style={{
         backgroundColor:
