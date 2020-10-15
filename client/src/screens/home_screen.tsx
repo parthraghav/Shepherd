@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import Screen from "./screen";
 import "./home_screen.css";
-import { BottomSheet, Logo, TransactionBox, VivianBox } from "@components";
+import { Logo, TransactionBox, VivianBox } from "@components";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
 import { Transactions } from "@data";
 import { Transaction } from "@models";
-import {
-  getCurrencySymbol,
-  getDisplayableDate,
-  getDisplayableNumber,
-} from "@core/utils";
 import { TransactionBottomSheet } from "@components/transaction_bottom_sheet";
 
 const SummaryVivianBox = (props: any) => (
