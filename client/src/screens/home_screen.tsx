@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Screen from "./screen";
 import "./home_screen.css";
 import { Logo, TransactionBox, VivianBox } from "@components";
@@ -6,9 +6,11 @@ import { faSmile } from "@fortawesome/free-solid-svg-icons";
 import { Transactions } from "@data";
 import { Transaction } from "@models";
 import { TransactionBottomSheet } from "@components/transaction_bottom_sheet";
+import { useHistory, useLocation } from "react-router-dom";
+import { TimelineMax, TweenMax } from "gsap";
 
-const SummaryVivianBox = (props: any) => (
-  <VivianBox {...props} icon={faSmile} primaryColor="1">
+const SummaryVivianBox = ({ onCTAClick, ...rest }: any) => (
+  <VivianBox {...rest} icon={faSmile} onCTAClick={onCTAClick} primaryColor="1">
     <span className="text">We have redistributed</span>
     <div className="heading summary-heading">
       <span className="currency">USD</span>
@@ -23,13 +25,53 @@ const HomeScreen = () => {
     setFocusedTransaction,
   ] = useState<Transaction | null>();
   const [isModalFocused, setModalFocus] = useState<boolean>(false);
+
+  const history = useHistory();
+  const location: any = useLocation();
+  const homeScreenRef: any = useRef<HTMLDivElement>();
+  const goToSettingScreen = () => {
+    const timeline = new TimelineMax({
+      onComplete: () =>
+        history.push("/settings", { from: window.location.pathname }),
+    });
+    if (homeScreenRef.current != null) {
+      timeline.to(
+        homeScreenRef.current,
+        {
+          transform: "rotateY(-70deg)",
+        },
+        0
+      );
+    }
+  };
+
+  useEffect(() => {
+    homeScreenRef.current.style.display = "flex";
+    if (homeScreenRef.current != null && location.state?.from == "/settings") {
+      TweenMax.fromTo(
+        homeScreenRef.current,
+        0.3,
+        {
+          transform: "rotateY(-70deg)",
+        },
+        {
+          transform: "rotateY(0deg)",
+        }
+      );
+    }
+  }, [TweenMax, location]);
+
   return (
     <Screen>
-      <div className="home-screen">
+      <div
+        ref={homeScreenRef}
+        className="home-screen"
+        style={{ display: "none" }}
+      >
         <div className="app-header">
           <Logo />
         </div>
-        <SummaryVivianBox />
+        <SummaryVivianBox onCTAClick={() => goToSettingScreen()} />
         <div className="">
           {Transactions.map((transaction) => (
             <TransactionBox
