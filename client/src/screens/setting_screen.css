@@ -19,3 +19,13 @@
 .setting-button-group > * + * {
   margin-top: 0.8em;
 }
+
+.form-group > * {
+  margin: 1em 0em;
+}
+
+.form-paragraph {
+  padding: 0em 1em;
+  font-size: 0.8em;
+  opacity: 0.6;
+}
