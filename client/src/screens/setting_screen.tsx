@@ -3,7 +3,7 @@ import Screen from "./screen";
 import "./setting_screen.css";
 import { Button, FormButton, FormInput, Logo, VivianBox } from "@components";
 import { faGlobeAmericas } from "@fortawesome/free-solid-svg-icons";
-import mastercard from "payment-icons/min/single/mastercard.svg";
+import { PaymentIcon } from "@components/payment_icon";
 
 const WelcomeVivianBox = (props: any) => (
   <VivianBox {...props} icon={faGlobeAmericas} primaryColor="2">
@@ -26,7 +26,7 @@ const SettingScreen = () => {
           <FormButton
             label="Payment Method"
             prompt="Ending in 3982"
-            hint={<img src={mastercard} width={60} />}
+            hint={<PaymentIcon type="mastercard" />}
           />
           <FormInput
             label="Your Need This Week"
