@@ -252,3 +252,62 @@
   border-radius: 1em;
   box-sizing: border-box;
 }
+
+/* form_input.tsx, form_button.tsx */
+
+.form-container {
+  flex: 1 1;
+  display: flex;
+  background: var(--primary-2);
+  padding: 1em;
+  border-radius: 1em;
+  align-items: center;
+}
+
+.form-input .left-container,
+.form-button .left-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input .right-container,
+.form-button .right-container {
+}
+
+.form-label {
+  font-size: 0.8em;
+  font-weight: 500;
+  opacity: 0.4;
+  text-transform: uppercase;
+}
+
+.form-prompt {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+/* input_box.tsx */
+.input-box {
+  display: flex;
+  align-items: center;
+  padding: 1em 0em;
+  background: var(--empty-background-color);
+  border-radius: 1em;
+  box-shadow: 3px 3px 6px rgb(0 0 0 / 0.16);
+}
+.input-box span {
+  font-weight: 600;
+  font-size: 0.9em;
+  padding-left: 1em;
+  opacity: 0.8;
+}
+.input-box input {
+  border: navajowhite;
+  font-size: 1.2em;
+  padding: 0em 0.5em;
+  font-weight: 700;
+}
+.input-box input:focus {
+  outline: 0;
+}
