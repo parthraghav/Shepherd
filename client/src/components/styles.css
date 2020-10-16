@@ -311,3 +311,10 @@
 .input-box input:focus {
   outline: 0;
 }
+
+/* payment_icon.tsx */
+.payment-icon {
+  background: var(--empty-background-color);
+  padding: 0.4em 0.8em;
+  border-radius: 1em;
+}
