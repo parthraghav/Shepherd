@@ -3,6 +3,7 @@ import Screen from "./screen";
 import "./setting_screen.css";
 import { Button, FormButton, FormInput, Logo, VivianBox } from "@components";
 import { faGlobeAmericas } from "@fortawesome/free-solid-svg-icons";
+import mastercard from "payment-icons/min/single/mastercard.svg";
 
 const WelcomeVivianBox = (props: any) => (
   <VivianBox {...props} icon={faGlobeAmericas} primaryColor="2">
@@ -21,19 +22,20 @@ const SettingScreen = () => {
           <Logo />
         </div>
         <WelcomeVivianBox />
-        <div className="">
+        <div className="form-group">
           <FormButton
             label="Payment Method"
             prompt="Ending in 3982"
-            hint={<span>image</span>}
+            hint={<img src={mastercard} width={60} />}
           />
           <FormInput
             label="Your Need This Week"
             prompt="What’s your need?"
             prefix="USD"
-            placeholder="56"
+            placeholder="$56"
+            defaultValue="$56"
           />
-          <div>
+          <div className="form-paragraph">
             <span>
               Please show your demonstrated need. WWR is a decentralized mutual
               aid platform, so all records are public. Please don’t lie!
@@ -43,12 +45,14 @@ const SettingScreen = () => {
             label="Your Donation"
             prompt="Choose a weekly donation"
             prefix="USD"
-            placeholder="5"
+            placeholder="$5"
+            defaultValue="$5"
           />
           <FormInput
             label="Your Name"
             prompt="What's your name?"
             placeholder="Parth"
+            defaultValue="Parth"
           />
         </div>
         <div className="setting-button-group">
