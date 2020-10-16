@@ -7,6 +7,6 @@ import { TransactionBox } from './transaction_box';
 import { BottomSheet } from './bottom_sheet';
 import { FormButton } from './form_button';
 import { FormInput } from './form_input';
+import { InputBox } from './input_box';
 
-
-export { Logo, Button, Loader, DelayUnmounting, VivianBox, TransactionBox, BottomSheet, FormButton, FormInput };
+export { Logo, Button, Loader, DelayUnmounting, VivianBox, TransactionBox, BottomSheet, FormButton, FormInput, InputBox };
