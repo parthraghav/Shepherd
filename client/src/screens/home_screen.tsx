@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Screen from "./screen";
 import "./home_screen.css";
-import { Logo, TransactionBox, VivianBox } from "@components";
+import {
+  FormInput,
+  Logo,
+  RadioButton,
+  TransactionBox,
+  VivianBox,
+} from "@components";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
 import { Transactions } from "@data";
 import { Transaction } from "@models";
@@ -73,6 +79,22 @@ const HomeScreen = () => {
         </div>
         <SummaryVivianBox onCTAClick={() => goToSettingScreen()} />
         <div className="">
+          <FormInput
+            label="Next week's Donation"
+            prompt="50%+ last week"
+            prefix="USD"
+            placeholder="$7.5"
+            defaultValue="$7.5"
+            type="choose-next-donation"
+          >
+            <div className="radio-button-group">
+              <RadioButton label="$5" />
+              <RadioButton label="$7.5" />
+              <RadioButton label="$10" />
+              <RadioButton label="$20" />
+            </div>
+          </FormInput>
+
           {Transactions.map((transaction) => (
             <TransactionBox
               key={transaction.uuid}
