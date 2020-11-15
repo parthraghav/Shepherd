@@ -1,7 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Screen from "./screen";
 import "./setting_screen.css";
-import { Button, FormButton, FormInput, Logo, VivianBox } from "@components";
+import {
+  Button,
+  FormButton,
+  FormInput,
+  Logo,
+  RadioButton,
+  VivianBox,
+} from "@components";
 import { faGlobeAmericas } from "@fortawesome/free-solid-svg-icons";
 import { PaymentIcon } from "@components/payment_icon";
 import { useHistory, useLocation } from "react-router-dom";
@@ -95,6 +102,13 @@ const SettingScreen = () => {
             placeholder="$5"
             defaultValue="$5"
           />
+          <div className="radio-button-group">
+            <RadioButton label="$5 (same as last week)" />
+            <RadioButton label="$7.5 (50% more)" />
+            <RadioButton label="$10 (100% more)" />
+            <RadioButton label="$20 (300% more)" />
+          </div>
+
           <FormInput
             label="Your Name"
             prompt="What's your name?"
