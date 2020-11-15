@@ -3,7 +3,7 @@ import "./styles.css";
 
 export const FormButton = ({ label, prompt, hint, ...rest }: any) => {
   return (
-    <div {...rest} className="form-container form-button">
+    <div {...rest} className="form-container form-button form-input">
       <div className="left-container">
         <div className="form-label">
           <span>{label}</span>
