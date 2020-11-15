@@ -8,5 +8,6 @@ import { BottomSheet } from './bottom_sheet';
 import { FormButton } from './form_button';
 import { FormInput } from './form_input';
 import { InputBox } from './input_box';
+import { RadioButton } from './radio_button';
 
-export { Logo, Button, Loader, DelayUnmounting, VivianBox, TransactionBox, BottomSheet, FormButton, FormInput, InputBox };
+export { Logo, Button, Loader, DelayUnmounting, VivianBox, TransactionBox, BottomSheet, FormButton, FormInput, InputBox, RadioButton, };

@@ -256,14 +256,20 @@
 /* form_input.tsx, form_button.tsx */
 
 .form-container {
-  flex: 1 1;
-  display: flex;
   background: var(--primary-2);
   padding: 1em;
   border-radius: 1em;
   align-items: center;
 }
+.form-container.choose-next-donation {
+  background: var(--dark-background-color-2);
+  color: var(--empty-foreground-color);
+}
 
+.form-input {
+  flex: 1 1;
+  display: flex;
+}
 .form-input .left-container,
 .form-button .left-container {
   flex: 1;
@@ -293,6 +299,7 @@
   align-items: center;
   padding: 1em 0em;
   background: var(--empty-background-color);
+  color: var(--primary-text-color);
   border-radius: 1em;
   box-shadow: 3px 3px 6px rgb(0 0 0 / 0.16);
 }
@@ -317,4 +324,22 @@
   background: var(--empty-background-color);
   padding: 0.4em 0.8em;
   border-radius: 1em;
+}
+
+/*styled-radio-button.tsx */
+.styled-radio-button {
+  background: var(--primary-1);
+  color: var(--primary-text-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 1em;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 1em;
+  margin: 0em 0.5em;
+  font-weight: 600;
+  width: fit-content;
+}
+.styled-radio-button.selected {
+  background: var(--primary-2);
 }
