@@ -16,8 +16,11 @@ contract Redistributor {
     User[] public users; // list of all participating users
 
     constructor(string memory _adminName) {
+        // make contract initiator the admin
         admin = User(msg.sender, _adminName, block.timestamp);
+        // add admin to the list of participating users
         users.push(admin);
+        // mark admin as enrolled
         isUserEnrolled[msg.sender] = true;
     }
 }
