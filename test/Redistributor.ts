@@ -16,7 +16,9 @@ describe("Redistributor Unit tests", function () {
 
     const signers: Signer[] = await ethers.getSigners();
     this.signers.admin = signers[0];
+    this.signers.user = signers[1];
     this.accounts.admin = await signers[0].getAddress();
+    this.accounts.user = await signers[1].getAddress();
     this.currentAccounts = signers;
   });
 

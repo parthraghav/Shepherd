@@ -1,5 +1,7 @@
 import { expect } from "chai";
 
+require("chai").use(require("chai-as-promised")).should();
+
 export function shouldBehaveLikeRedistributor(): void {
   it("should have correct version number", async function () {
     const version = await this.redistributor.connect(this.signers.admin).version();
@@ -29,21 +31,21 @@ export function shouldBehaveLikeRedistributor(): void {
     // find first admin
     const firstAdmin = await redistributor.admin();
     expect(firstAdmin[1]).to.equal("Parth Raghav", "First Admin name is correct");
-    console.log(firstAdmin[1]);
 
     // yield power
     const secondAdminAddr = await this.currentAccounts[1].getAddress();
-    console.log(secondAdminAddr);
     await redistributor.yield(secondAdminAddr, "John Doe");
 
     // find next admin
     const secondAdmin = await redistributor.admin();
     expect(secondAdmin[1]).to.equal("John Doe", "Second Admin name is correct");
-    console.log(secondAdmin[1]);
 
     // yield power again with the first account (should fail)
-    // expect(async () => await redistributor.yield(secondAdminAddr, "John Doe")).to.throw(
-    //   "VM Exception while processing transaction: revert Not admin: You're not authorized",
-    // );
+    redistributor.yield(secondAdminAddr, "John Doe").should.eventually.be.rejected;
+  });
+
+  it("should allow only the admin kill the contract", async function () {
+    this.redistributor.connect(this.signers.admin).kill().should.eventually.be.fulfilled;
+    this.redistributor.connect(this.signers.user).kill().should.eventually.be.rejected;
   });
 }
