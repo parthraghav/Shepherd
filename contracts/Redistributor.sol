@@ -45,4 +45,10 @@ contract Redistributor {
             console.log("The User is already enrolled");
         }
     }
+
+    /// Kill the contract
+    function kill() public adminOnly {
+        require(admin.addr != address(0x0), "The admin is not initialised");
+        selfdestruct(admin.addr);
+    }
 }
