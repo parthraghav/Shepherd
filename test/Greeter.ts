@@ -9,7 +9,7 @@ import { shouldBehaveLikeGreeter } from "./Greeter.behavior";
 
 const { deployContract } = waffle;
 
-describe("Unit tests", function () {
+describe("Greeter Unit tests", function () {
   before(async function () {
     this.accounts = {} as Accounts;
     this.signers = {} as Signers;
