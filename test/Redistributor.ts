@@ -2,9 +2,11 @@ import { Signer } from "@ethersproject/abstract-signer";
 import { ethers, waffle } from "hardhat";
 
 import RedistributorArtifact from "../artifacts/contracts/Redistributor.sol/Redistributor.json";
+import DaiTokenArtifact from "../artifacts/contracts/DaiToken.sol/DaiToken.json";
 
 import { Accounts, Signers } from "../types";
 import { Redistributor } from "../typechain/Redistributor";
+import { DaiToken } from "../typechain/DaiToken";
 import { shouldBehaveLikeRedistributor } from "./Redistributor.behavior";
 
 const { deployContract } = waffle;
@@ -25,6 +27,8 @@ describe("Redistributor Unit tests", function () {
   describe("Redistributor", function () {
     beforeEach(async function () {
       const adminName: string = "Parth Raghav";
+
+      this.daiToken = (await deployContract(this.signers.admin, DaiTokenArtifact, [])) as DaiToken;
       this.redistributor = (await deployContract(this.signers.admin, RedistributorArtifact, [
         adminName,
       ])) as Redistributor;
