@@ -1,0 +1,1 @@
+export { didContractEmitTransaction } from "./didContractEmitTransaction";
