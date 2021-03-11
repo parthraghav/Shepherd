@@ -2,8 +2,13 @@ pragma solidity ^0.7.0;
 
 import "hardhat/console.sol";
 
+import "./DaiToken.sol";
+
 contract Redistributor {
     string public version = "0.0.0";
+
+    uint256 public sum; // total money accumulated into the system
+    DaiToken public daiToken;
 
     struct User {
         address payable addr; // address of the user
@@ -16,13 +21,24 @@ contract Redistributor {
     User[] public users; // list of all participating users
 
     modifier adminOnly {
-        require(admin.addr == address(0x0) || msg.sender == admin.addr, "Not admin: You're not authorized");
+        require(
+            admin.addr == address(0x0) || msg.sender == admin.addr,
+            "Not authorized: You must be an admin to perform this operation"
+        );
+        _;
+    }
+
+    modifier enrolledOnly {
+        require(isUserEnrolled[msg.sender], "Not authorized: You must be enrolled to perform this operation");
         _;
     }
 
     constructor(string memory _adminName) {
         // yield to the contract creator
         yield(msg.sender, _adminName);
+        // initialise DaiToken
+        // daiToken = DaiToken(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
+        daiToken = new DaiToken();
     }
 
     /// Give admin access to new account. This is necessary
@@ -50,5 +66,27 @@ contract Redistributor {
     function kill() public adminOnly {
         require(admin.addr != address(0x0), "The admin is not initialised");
         selfdestruct(admin.addr);
+    }
+
+    /// Donate
+    function donate(uint256 _amount) public enrolledOnly {
+        // Require amount greater than 0
+        require(_amount > 0, "amount cannot be 0");
+
+        // Transfer Mock DAI tokens to this contract for staking
+        daiToken.transferFrom(msg.sender, address(this), _amount);
+
+        sum = sum + _amount;
+        // emit transaction event
+    }
+
+    /// Redistribute
+    function redistribute() public adminOnly {
+        if (sum <= 0) return;
+        uint256 reward = sum / users.length;
+        for (uint256 i = 0; i < users.length; i++) {
+            if (reward > 0) daiToken.transfer(users[i].addr, reward);
+        }
+        // emit redistribution event
     }
 }
