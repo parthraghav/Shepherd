@@ -73,5 +73,8 @@
     "prettier:list-different": "prettier --config .prettierrc --list-different \"**/*.{js,json,md,sol,ts}\"",
     "hardhat_test": "hardhat test",
     "hardhat_typechain": "hardhat typechain"
+  },
+  "dependencies": {
+    "web3": "^1.3.4"
   }
 }
