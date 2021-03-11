@@ -1,9 +1,9 @@
-import * as functions from 'firebase-functions';
+import * as CloudFunctions from "firebase-functions";
+import * as admin from "firebase-admin";
+import * as Mirror from "./Mirror";
+const functions = CloudFunctions.region("us-central1");
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+admin.initializeApp();
+
+////////////////////////////////// REQUESTS //////////////////////////////////
+export const didContractEmitTransaction = functions.https.onRequest(Mirror.didContractEmitTransaction);
