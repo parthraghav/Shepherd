@@ -1,6 +1,15 @@
 import { expect } from "chai";
+import web3 from "web3";
 
 require("chai").use(require("chai-as-promised")).should();
+
+function tokens(n: string) {
+  return web3.utils.toWei(n, "ether");
+}
+
+function dollars(n: string) {
+  return web3.utils.fromWei(n);
+}
 
 export function shouldBehaveLikeRedistributor(): void {
   it("should have correct version number", async function () {
@@ -47,5 +56,29 @@ export function shouldBehaveLikeRedistributor(): void {
   it("should allow only the admin kill the contract", async function () {
     this.redistributor.connect(this.signers.admin).kill().should.eventually.be.fulfilled;
     this.redistributor.connect(this.signers.user).kill().should.eventually.be.rejected;
+  });
+
+  it("should receive donations", async function () {
+    const redistributor = this.redistributor.connect(this.signers.admin);
+    const daiToken = this.daiToken.connect(this.signers.admin);
+    console.log(redistributor.address);
+    console.log("sum before", dollars((await redistributor.sum()).toString()));
+    await daiToken.approve(redistributor.address, tokens("100"), {
+      from: await this.currentAccounts[0].getAddress(),
+    });
+
+    console.log(
+      "account balance",
+      dollars((await daiToken.balanceOf(this.currentAccounts[0].getAddress())).toString()),
+    );
+    console.log(
+      "approved balance",
+      dollars((await daiToken.allowance(this.currentAccounts[0].getAddress(), redistributor.address)).toString()),
+    );
+
+    await redistributor.donate(tokens("100"), {
+      from: await this.currentAccounts[0].getAddress(),
+    });
+    console.log("sum after", dollars((await redistributor.sum()).toString()));
   });
 }
