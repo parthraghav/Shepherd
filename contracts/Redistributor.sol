@@ -9,7 +9,7 @@ contract Redistributor {
 
     uint256 public sum; // total money accumulated into the system
     DaiToken public daiToken;
-    String currentCurrency = "mDAI";
+    string currentCurrency = "mDAI";
 
     struct User {
         address payable addr; // address of the user
@@ -21,15 +21,15 @@ contract Redistributor {
     mapping(address => bool) public isUserEnrolled; // checks if user is enrolled in the redistribution program
     User[] public users; // list of all participating users
 
-    enum TransactionType { Donation, Redistribution };
+    enum TransactionType { Donation, Redistribution }
 
     event Transaction(
         address indexed beneficiary,
         address indexed remitter,
-        uint256 indexed emittedAt,
+        uint256 emittedAt,
         TransactionType indexed transactionType,
-        uint256 indexed amount,
-        uint256 indexed currency
+        uint256 amount,
+        string currency
     );
 
     modifier adminOnly {
@@ -90,7 +90,16 @@ contract Redistributor {
         daiToken.transferFrom(msg.sender, address(this), _amount);
 
         sum = sum + _amount;
+
         // emit transaction event
+        emit Transaction(
+            address(this),
+            msg.sender,
+            block.timestamp,
+            TransactionType.Donation,
+            _amount,
+            currentCurrency
+        );
     }
 
     /// Redistribute
