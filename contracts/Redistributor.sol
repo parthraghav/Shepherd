@@ -9,6 +9,7 @@ contract Redistributor {
 
     uint256 public sum; // total money accumulated into the system
     DaiToken public daiToken;
+    String currentCurrency = "mDAI";
 
     struct User {
         address payable addr; // address of the user
@@ -19,6 +20,17 @@ contract Redistributor {
     User public admin; //  admin user details
     mapping(address => bool) public isUserEnrolled; // checks if user is enrolled in the redistribution program
     User[] public users; // list of all participating users
+
+    enum TransactionType { Donation, Redistribution };
+
+    event Transaction(
+        address indexed beneficiary,
+        address indexed remitter,
+        uint256 indexed emittedAt,
+        TransactionType indexed transactionType,
+        uint256 indexed amount,
+        uint256 indexed currency
+    );
 
     modifier adminOnly {
         require(
