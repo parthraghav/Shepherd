@@ -15,7 +15,12 @@ contract DaiToken {
     mapping(address => mapping(address => uint256)) public allowance;
 
     constructor() {
+        // console.log("msg.sender");
+        // console.log(msg.sender);
+        // console.log(balanceOf[msg.sender]);
+        // console.log(totalSupply);
         balanceOf[msg.sender] = totalSupply;
+        console.log(balanceOf[msg.sender]);
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -37,9 +42,11 @@ contract DaiToken {
         address _to,
         uint256 _value
     ) public returns (bool success) {
-        console.log("fuck");
-        console.log(_value);
-        console.log(balanceOf[_from]);
+        // console.log("fuck");
+        // console.log(_value);
+        // console.log(msg.sender);
+        // console.log(balanceOf[_from]);
+        // console.log(allowance[_from][msg.sender]);
         require(_value <= balanceOf[_from]);
         require(_value <= allowance[_from][msg.sender]);
         balanceOf[_from] -= _value;
