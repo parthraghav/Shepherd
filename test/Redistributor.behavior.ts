@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import { assert } from "console";
 import web3 from "web3";
 
 require("chai").use(require("chai-as-promised")).should();
@@ -61,24 +62,26 @@ export function shouldBehaveLikeRedistributor(): void {
   it("should receive donations", async function () {
     const redistributor = this.redistributor.connect(this.signers.admin);
     const daiToken = this.daiToken.connect(this.signers.admin);
-    console.log(redistributor.address);
-    console.log("sum before", dollars((await redistributor.sum()).toString()));
+
+    const sumBefore = dollars((await redistributor.sum()).toString());
+    assert(sumBefore == "0");
+
+    // Transfer dai tokens into the users account
+    await daiToken.transfer(this.currentAccounts[0].getAddress(), tokens("100"), {
+      from: await this.currentAccounts[0].getAddress(),
+    });
+
+    // Approve the donation
     await daiToken.approve(redistributor.address, tokens("100"), {
       from: await this.currentAccounts[0].getAddress(),
     });
 
-    console.log(
-      "account balance",
-      dollars((await daiToken.balanceOf(this.currentAccounts[0].getAddress())).toString()),
-    );
-    console.log(
-      "approved balance",
-      dollars((await daiToken.allowance(this.currentAccounts[0].getAddress(), redistributor.address)).toString()),
-    );
-
+    // Call the donation method on the contract
     await redistributor.donate(tokens("100"), {
       from: await this.currentAccounts[0].getAddress(),
     });
-    console.log("sum after", dollars((await redistributor.sum()).toString()));
+
+    const sumAfter = dollars((await redistributor.sum()).toString());
+    assert(sumAfter == "100");
   });
 }
