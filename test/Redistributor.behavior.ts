@@ -77,11 +77,19 @@ export function shouldBehaveLikeRedistributor(): void {
     });
 
     // Call the donation method on the contract
-    await redistributor.donate(tokens("100"), {
+    const donation = await redistributor.donate(tokens("100"), {
       from: await this.currentAccounts[0].getAddress(),
     });
 
     const sumAfter = dollars((await redistributor.sum()).toString());
     assert(sumAfter == "100");
+
+    // Check if the Donation Transaction Event is Emitted
+    const receipt = await donation.wait();
+    const loggedEvents = receipt.events?.filter((x: any) => {
+      return x.event == "Transaction";
+    });
+    assert(loggedEvents.length == 1);
+    assert(loggedEvents[0].transactionType == 0);
   });
 }
