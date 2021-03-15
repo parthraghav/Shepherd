@@ -33,12 +33,13 @@ contract Redistributor {
         _;
     }
 
-    constructor(string memory _adminName) {
+    constructor(string memory _adminName, DaiToken _daiToken) {
         // yield to the contract creator
         yield(msg.sender, _adminName);
         // initialise DaiToken
         // daiToken = DaiToken(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
-        daiToken = new DaiToken();
+        // daiToken = new DaiToken();
+        daiToken = _daiToken;
     }
 
     /// Give admin access to new account. This is necessary
