@@ -106,9 +106,21 @@ contract Redistributor {
     function redistribute() public adminOnly {
         if (sum <= 0) return;
         uint256 reward = sum / users.length;
+        sum = 0;
         for (uint256 i = 0; i < users.length; i++) {
-            if (reward > 0) daiToken.transfer(users[i].addr, reward);
+            if (reward > 0) {
+                // redistribute to each user
+                daiToken.transfer(users[i].addr, reward);
+                // emit redistribution event
+                emit Transaction(
+                    users[i].addr,
+                    address(this),
+                    block.timestamp,
+                    TransactionType.Redistribution,
+                    reward,
+                    currentCurrency
+                );
+            }
         }
-        // emit redistribution event
     }
 }
