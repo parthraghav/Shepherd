@@ -31,6 +31,7 @@ describe("Redistributor Unit tests", function () {
       this.daiToken = (await deployContract(this.signers.admin, DaiTokenArtifact, [])) as DaiToken;
       this.redistributor = (await deployContract(this.signers.admin, RedistributorArtifact, [
         adminName,
+        this.daiToken.address,
       ])) as Redistributor;
     });
 
