@@ -72,7 +72,8 @@
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,json,md,sol,ts}\"",
     "prettier:list-different": "prettier --config .prettierrc --list-different \"**/*.{js,json,md,sol,ts}\"",
     "hardhat_test": "hardhat test",
-    "hardhat_typechain": "hardhat typechain"
+    "hardhat_typechain": "hardhat typechain",
+    "hardhat_deploy": "hardhat run scripts/deploy.ts --network kovan"
   },
   "dependencies": {
     "web3": "^1.3.4"
