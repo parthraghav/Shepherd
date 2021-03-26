@@ -5,7 +5,10 @@ import { FirebaseApp } from "../firebase";
 export const getMyTransactions = async () => {
   const uid = FirebaseApp.auth.currentUser?.uid;
   if (!uid) return;
-  const transactionsRef = FirebaseApp.db.collection("transactions").where("uid", "in", [uid]);
+  const transactionsRef = FirebaseApp.db
+    .collection("transactions")
+    .where("uid", "in", [uid])
+    .orderBy("recordedAt", "desc");
   const transactionsSnapshot = await transactionsRef.get();
   let fetchedTransactions: any = [];
 
