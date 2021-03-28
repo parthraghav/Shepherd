@@ -1,15 +1,26 @@
 pragma solidity ^0.7.0;
 
-import "hardhat/console.sol";
+// Adding only the ERC-20 function we need
+interface DaiToken {
+    function transfer(address dst, uint256 wad) external returns (bool);
 
-import "./DaiToken.sol";
+    function balanceOf(address guy) external view returns (uint256);
+
+    function transferFrom(
+        address _from,
+        address _to,
+        uint256 _value
+    ) external returns (bool success);
+
+    function approve(address _spender, uint256 _value) external returns (bool success);
+}
 
 contract Redistributor {
     string public version = "0.0.0";
 
     uint256 public sum; // total money accumulated into the system
     DaiToken public daiToken;
-    string currentCurrency = "mDAI";
+    string currentCurrency = "DAI";
 
     struct User {
         address payable addr; // address of the user
@@ -45,13 +56,11 @@ contract Redistributor {
         _;
     }
 
-    constructor(string memory _adminName, DaiToken _daiToken) {
+    constructor(string memory _adminName) {
         // yield to the contract creator
         yield(msg.sender, _adminName);
         // initialise DaiToken
-        // daiToken = DaiToken(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
-        // daiToken = new DaiToken();
-        daiToken = _daiToken;
+        daiToken = DaiToken(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     }
 
     /// Give admin access to new account. This is necessary
