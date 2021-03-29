@@ -10,12 +10,14 @@ class Firebase {
   analytics: app.analytics.Analytics;
   functions: app.functions.Functions;
   auth: app.auth.Auth;
+  GoogleAuthProvider: app.auth.GoogleAuthProvider;
   constructor() {
     app.initializeApp(FIREBASE_CONFIG);
     this.db = app.firestore(); // <- needed if using firestore
     this.analytics = app.analytics();
     this.functions = app.functions();
     this.auth = app.auth();
+    this.GoogleAuthProvider = new app.auth.GoogleAuthProvider();
   }
 }
 
