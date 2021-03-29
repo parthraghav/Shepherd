@@ -4,6 +4,7 @@ import Screen from "./screen";
 import "./welcome_screen.css";
 import { useHistory } from "react-router-dom";
 import { TimelineMax } from "gsap";
+import { loginWithGoogle } from "@core/auth";
 enum WelcomeState {
   Uninitialized,
   Progress,
@@ -48,7 +49,7 @@ const WelcomeScreen = ({ shouldRender }: any) => {
             transform: "translate(0%, -100%)",
           },
         },
-        0
+        0,
       );
       tl.to(
         boxRef.current,
@@ -57,11 +58,12 @@ const WelcomeScreen = ({ shouldRender }: any) => {
             transform: "translate(0%, 100%)",
           },
         },
-        0
+        0,
       );
     }
   };
   const handleClick = () => {
+    loginWithGoogle();
     setWelcomeState(WelcomeState.Progress);
     setTimeout(() => {
       setWelcomeState(WelcomeState.Finished);
@@ -71,13 +73,7 @@ const WelcomeScreen = ({ shouldRender }: any) => {
     }, 2000);
   };
   return (
-    <Screen
-      className={
-        "welcome-screen" +
-        " " +
-        (welcomeState != WelcomeState.Uninitialized ? "progress" : "")
-      }
-    >
+    <Screen className={"welcome-screen" + " " + (welcomeState != WelcomeState.Uninitialized ? "progress" : "")}>
       <div ref={logoRef} className="welcome-logo-container">
         <Logo />
       </div>
