@@ -21,3 +21,12 @@ export const updateMyName = async (newName: string) => {
     name: newName,
   });
 };
+
+export const updateMyWeeklyDonationAmount = async (newAmount: number) => {
+  const uid = FirebaseApp.auth.currentUser?.uid;
+  if (!uid) return;
+  const userRef = FirebaseApp.db.collection("users").doc(uid);
+  await userRef.update({
+    weeklyDonationAmount: newAmount,
+  });
+};
