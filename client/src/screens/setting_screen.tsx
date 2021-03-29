@@ -1,26 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import Screen from "./screen";
 import "./setting_screen.css";
-import {
-  Button,
-  FormButton,
-  FormInput,
-  Logo,
-  RadioButton,
-  VivianBox,
-} from "@components";
+import { Button, FormButton, FormInput, Logo, RadioButton, VivianBox } from "@components";
 import { faGlobeAmericas } from "@fortawesome/free-solid-svg-icons";
 import { PaymentIcon } from "@components/payment_icon";
 import { useHistory, useLocation } from "react-router-dom";
 import { TimelineMax, TweenMax } from "gsap";
+import { logout } from "@core/auth";
 
 const WelcomeVivianBox = ({ onCTAClick, ...rest }: any) => (
-  <VivianBox
-    {...rest}
-    icon={faGlobeAmericas}
-    onCTAClick={onCTAClick}
-    primaryColor="2"
-  >
+  <VivianBox {...rest} icon={faGlobeAmericas} onCTAClick={onCTAClick} primaryColor="2">
     <span className="text">Welcome back!</span>
     <div className="heading welcome-heading">
       <span>Parth</span>
@@ -34,8 +23,7 @@ const SettingScreen = () => {
   const settingScreenRef: any = useRef<HTMLDivElement>();
   const goToHomeScreen = () => {
     const timeline = new TimelineMax({
-      onComplete: () =>
-        history.push("/home", { from: window.location.pathname }),
+      onComplete: () => history.push("/home", { from: window.location.pathname }),
     });
     if (settingScreenRef.current != null) {
       timeline.to(
@@ -43,7 +31,7 @@ const SettingScreen = () => {
         {
           transform: "rotateY(70deg)",
         },
-        0
+        0,
       );
     }
   };
@@ -60,28 +48,20 @@ const SettingScreen = () => {
         },
         {
           transform: "rotateY(0deg)",
-        }
+        },
       );
     }
   }, [TweenMax, location]);
 
   return (
     <Screen>
-      <div
-        ref={settingScreenRef}
-        className="setting-screen"
-        style={{ display: "none" }}
-      >
+      <div ref={settingScreenRef} className="setting-screen" style={{ display: "none" }}>
         <div className="app-header">
           <Logo />
         </div>
         <WelcomeVivianBox onCTAClick={() => goToHomeScreen()} />
         <div className="form-group">
-          <FormButton
-            label="Payment Method"
-            prompt="Ending in 3982"
-            hint={<PaymentIcon type="mastercard" />}
-          />
+          <FormButton label="Payment Method" prompt="Ending in 3982" hint={<PaymentIcon type="mastercard" />} />
           <FormInput
             label="Your Need This Week"
             prompt="What’s your need?"
@@ -91,8 +71,8 @@ const SettingScreen = () => {
           />
           <div className="form-paragraph">
             <span>
-              Please show your demonstrated need. WWR is a decentralized mutual
-              aid platform, so all records are public. Please don’t lie!
+              Please show your demonstrated need. WWR is a decentralized mutual aid platform, so all records are public.
+              Please don’t lie!
             </span>
           </div>
           <FormInput
@@ -109,19 +89,14 @@ const SettingScreen = () => {
             <RadioButton label="$20 (300% more)" />
           </div>
 
-          <FormInput
-            label="Your Name"
-            prompt="What's your name?"
-            placeholder="Parth"
-            defaultValue="Parth"
-          />
+          <FormInput label="Your Name" prompt="What's your name?" placeholder="Parth" defaultValue="Parth" />
         </div>
         <div className="setting-button-group">
           <Button label="Need help?" />
           <Button label="How does it work?" />
           <Button label="Contribute" />
           <Button label="Legal Information" />
-          <Button label="Logout" />
+          <Button label="Logout" onClick={() => logout()} />
         </div>
       </div>
     </Screen>
