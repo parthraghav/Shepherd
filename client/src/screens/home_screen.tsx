@@ -1,13 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Screen from "./screen";
 import "./home_screen.css";
-import {
-  FormInput,
-  Logo,
-  RadioButton,
-  TransactionBox,
-  VivianBox,
-} from "@components";
+import { FormInput, Logo, RadioButton, TransactionBox, VivianBox } from "@components";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
 import { Transactions } from "@data";
 import { Transaction } from "@models";
@@ -26,19 +20,15 @@ const SummaryVivianBox = ({ onCTAClick, ...rest }: any) => (
 );
 
 const HomeScreen = () => {
-  const [
-    focusedTransaction,
-    setFocusedTransaction,
-  ] = useState<Transaction | null>();
-  const [isModalFocused, setModalFocus] = useState<boolean>(false);
+  const [focusedTransaction, setFocusedTransaction] = useState<Transaction | null>();
 
+  const [isModalFocused, setModalFocus] = useState<boolean>(false);
   const history = useHistory();
   const location: any = useLocation();
   const homeScreenRef: any = useRef<HTMLDivElement>();
   const goToSettingScreen = () => {
     const timeline = new TimelineMax({
-      onComplete: () =>
-        history.push("/settings", { from: window.location.pathname }),
+      onComplete: () => history.push("/settings", { from: window.location.pathname }),
     });
     if (homeScreenRef.current != null) {
       timeline.to(
@@ -46,7 +36,7 @@ const HomeScreen = () => {
         {
           transform: "rotateY(-70deg)",
         },
-        0
+        0,
       );
     }
   };
@@ -62,18 +52,14 @@ const HomeScreen = () => {
         },
         {
           transform: "rotateY(0deg)",
-        }
+        },
       );
     }
   }, [TweenMax, location]);
 
   return (
     <Screen>
-      <div
-        ref={homeScreenRef}
-        className="home-screen"
-        style={{ display: "none" }}
-      >
+      <div ref={homeScreenRef} className="home-screen" style={{ display: "none" }}>
         <div className="app-header">
           <Logo />
         </div>
@@ -95,7 +81,7 @@ const HomeScreen = () => {
             </div>
           </FormInput>
 
-          {Transactions.map((transaction) => (
+          {Transactions.map(transaction => (
             <TransactionBox
               key={transaction.uuid}
               data={transaction}
@@ -107,10 +93,7 @@ const HomeScreen = () => {
           ))}
         </div>
         {isModalFocused && (
-          <TransactionBottomSheet
-            transaction={focusedTransaction}
-            close={() => setModalFocus(false)}
-          />
+          <TransactionBottomSheet transaction={focusedTransaction} close={() => setModalFocus(false)} />
         )}
       </div>
     </Screen>
