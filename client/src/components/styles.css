@@ -33,8 +33,7 @@
   border-top: 17px solid var(--dark-background-color);
   background: var(--empty-background-color);
   transform: rotate(180deg);
-  transition: 0.1s transform, 0.5s background, 0.5s border, 0.5s border-radius,
-    0.5s transform;
+  transition: 0.1s transform, 0.5s background, 0.5s border, 0.5s border-radius, 0.5s transform;
 }
 .loader > * {
   transition: 0.5s transform;
@@ -102,8 +101,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, var(--border-color) 100%, transparent 100%)
-      top left no-repeat,
+  background: linear-gradient(90deg, var(--border-color) 100%, transparent 100%) top left no-repeat,
     linear-gradient(
         90deg,
         transparent calc(var(--gap-size) / 2),
@@ -112,10 +110,8 @@
         transparent calc(var(--gap-size) / 2 + var(--dash-size))
       )
       top center repeat-x,
-    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) top right
-      no-repeat,
-    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) top left
-      no-repeat,
+    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) top right no-repeat,
+    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) top left no-repeat,
     linear-gradient(
         0deg,
         transparent calc(var(--gap-size) / 2),
@@ -124,10 +120,8 @@
         transparent calc(var(--gap-size) / 2 + var(--dash-size))
       )
       center left repeat-y,
-    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) bottom
-      left no-repeat,
-    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) bottom
-      left no-repeat,
+    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) bottom left no-repeat,
+    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) bottom left no-repeat,
     linear-gradient(
         90deg,
         transparent calc(var(--gap-size) / 2),
@@ -136,10 +130,8 @@
         transparent calc(var(--gap-size) / 2 + var(--dash-size))
       )
       bottom center repeat-x,
-    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) bottom
-      right no-repeat,
-    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) top right
-      no-repeat,
+    linear-gradient(90deg, var(--border-color) 100%, transparent 100%) bottom right no-repeat,
+    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) top right no-repeat,
     linear-gradient(
         0deg,
         transparent calc(var(--gap-size) / 2),
@@ -148,13 +140,10 @@
         transparent calc(var(--gap-size) / 2 + var(--dash-size))
       )
       center right repeat-y,
-    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) bottom
-      right no-repeat;
-  background-size: var(--dash-size) var(--border-weight),
-    calc(var(--dash-size) + var(--gap-size)) var(--border-weight),
+    linear-gradient(0deg, var(--border-color) 100%, transparent 100%) bottom right no-repeat;
+  background-size: var(--dash-size) var(--border-weight), calc(var(--dash-size) + var(--gap-size)) var(--border-weight),
     var(--dash-size) var(--border-weight), var(--border-weight) var(--dash-size),
-    var(--border-weight) calc(var(--dash-size) + var(--gap-size)),
-    var(--border-weight) var(--dash-size);
+    var(--border-weight) calc(var(--dash-size) + var(--gap-size)), var(--border-weight) var(--dash-size);
 }
 
 /* vivian.box.tsx */
@@ -270,6 +259,11 @@
   flex: 1 1;
   display: flex;
 }
+
+.form-input.full-width {
+  flex-direction: column;
+}
+
 .form-input .left-container,
 .form-button .left-container {
   flex: 1;
@@ -277,8 +271,8 @@
   flex-direction: column;
 }
 
-.form-input .right-container,
-.form-button .right-container {
+.form-input.full-width .right-container {
+  padding-top: 1em;
 }
 
 .form-label {
@@ -295,6 +289,7 @@
 
 /* input_box.tsx */
 .input-box {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 1em 0em;
@@ -303,6 +298,13 @@
   border-radius: 1em;
   box-shadow: 3px 3px 6px rgb(0 0 0 / 0.16);
 }
+.input-save-button {
+  right: 0;
+  background: var(--yellow);
+  padding: 0.5em;
+  margin: 0em 1em 0em 0em;
+  border-radius: 1em;
+}
 .input-box span {
   font-weight: 600;
   font-size: 0.9em;
@@ -310,10 +312,12 @@
   opacity: 0.8;
 }
 .input-box input {
+  flex: 1;
   border: navajowhite;
   font-size: 1.2em;
   padding: 0em 0.5em;
   font-weight: 700;
+  width: 80px;
 }
 .input-box input:focus {
   outline: 0;
