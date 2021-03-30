@@ -1,4 +1,5 @@
 import { FirebaseApp } from "../firebase";
+import app from "firebase/app";
 
 export const getMyInfo = async () => {
   const uid = FirebaseApp.auth.currentUser?.uid;
@@ -28,5 +29,15 @@ export const updateMyWeeklyDonationAmount = async (newAmount: number) => {
   const userRef = FirebaseApp.db.collection("users").doc(uid);
   await userRef.update({
     weeklyDonationAmount: newAmount,
+  });
+};
+
+export const updateMyDemonstratedNeedAmount = async (newAmount: number) => {
+  const uid = FirebaseApp.auth.currentUser?.uid;
+  if (!uid) return;
+  const userRef = FirebaseApp.db.collection("users").doc(uid);
+  await userRef.update({
+    demonstratedNeedAmount: newAmount,
+    demonstratedNeedAmountUpdatedAt: app.firestore.FieldValue.serverTimestamp(),
   });
 };
