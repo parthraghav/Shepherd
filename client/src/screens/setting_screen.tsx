@@ -15,7 +15,7 @@ import {
   updateMyWeeklyDonationAmount,
 } from "@core/user";
 import { web3 } from "@core/web3";
-import { DaiToken } from "../abis";
+import { getDaiBalance } from "@core/dai_token";
 
 const WelcomeVivianBox = ({ onCTAClick, userInfo, ...rest }: any) => {
   const fullName = userInfo?.name ?? "";
@@ -87,15 +87,8 @@ const SettingScreen = () => {
     (async function () {
       const walletAddress = myInfo?.walletAddress;
       if (!["0x0", undefined, ""].includes(walletAddress)) {
-        const daiTokenAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa"; // Replace DAI Address Here (can be the actual smart contract)
-        const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenAddress);
-        console.log(walletAddress);
-        daiToken.methods
-          .balanceOf(walletAddress)
-          .call()
-          .then(function (balance: string) {
-            setDaiBalance(web3.utils.fromWei(balance, "ether"));
-          });
+        const balance = await getDaiBalance(walletAddress);
+        setDaiBalance(web3.utils.fromWei(balance, "ether"));
       }
     })();
   }, [myInfo]);
