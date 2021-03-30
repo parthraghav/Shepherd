@@ -9,7 +9,6 @@ import "./theme/shared.css";
 import { FirebaseApp } from "./firebase";
 import { Loader } from "@components";
 import { LoaderState } from "@components/loader";
-import { logout } from "@core/auth";
 
 const routes = [
   { path: "/welcome", component: WelcomeScreen, routeType: PublicOnlyRoute },
@@ -24,11 +23,10 @@ enum UserStatus {
 }
 
 function App() {
-  const [user, setUser] = useState(FirebaseApp.auth.currentUser);
+  const [user, setUser] = useState<any>();
   const [userStatus, setUserStatus] = useState(UserStatus.Unknown);
-  FirebaseApp.auth.onAuthStateChanged(function (user) {
-    setUser(user);
-    if (user) {
+  FirebaseApp.auth.onAuthStateChanged(async function (newUser) {
+    if (newUser) {
       setUserStatus(UserStatus.LoggedIn);
     } else {
       setUserStatus(UserStatus.LoggedOut);
