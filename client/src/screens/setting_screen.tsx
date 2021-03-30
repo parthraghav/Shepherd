@@ -14,7 +14,8 @@ import {
   updateMyWalletAddress,
   updateMyWeeklyDonationAmount,
 } from "@core/user";
-import Web3 from "web3";
+import { web3 } from "@core/web3";
+import { DaiToken } from "../abis";
 
 const WelcomeVivianBox = ({ onCTAClick, userInfo, ...rest }: any) => {
   const fullName = userInfo?.name ?? "";
@@ -31,6 +32,7 @@ const WelcomeVivianBox = ({ onCTAClick, userInfo, ...rest }: any) => {
 
 const SettingScreen = () => {
   const [myInfo, setMyInfo] = useState<any>();
+  const [daiBalance, setDaiBalance] = useState<any>();
   const [availableAccounts, setAvailableAccounts] = useState<any>(["0x0"]);
   const history = useHistory();
   const location: any = useLocation();
@@ -75,12 +77,28 @@ const SettingScreen = () => {
     })();
 
     (async function loadBlockchainData() {
-      const web3 = new Web3(Web3.givenProvider || "http://localhost:3000");
       const accounts = await web3.eth.getAccounts();
       setAvailableAccounts([...availableAccounts, ...accounts]);
       console.log(accounts);
     })();
   }, []);
+
+  useEffect(() => {
+    (async function () {
+      const walletAddress = myInfo?.walletAddress;
+      if (!["0x0", undefined, ""].includes(walletAddress)) {
+        const daiTokenAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa"; // Replace DAI Address Here (can be the actual smart contract)
+        const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenAddress);
+        console.log(walletAddress);
+        daiToken.methods
+          .balanceOf(walletAddress)
+          .call()
+          .then(function (balance: string) {
+            setDaiBalance(web3.utils.fromWei(balance, "ether"));
+          });
+      }
+    })();
+  }, [myInfo]);
 
   return (
     <Screen>
@@ -90,7 +108,11 @@ const SettingScreen = () => {
         </div>
         <WelcomeVivianBox userInfo={myInfo} onCTAClick={() => goToHomeScreen()} />
         <div className="form-group">
-          <FormButton label="Your Balance" prompt="534.88 DAI" hint={<PaymentIcon type="dai" />} />
+          <FormButton
+            label="Your Balance"
+            prompt={daiBalance == undefined ? "Connecting..." : `${daiBalance} DAI`}
+            hint={<PaymentIcon type="dai" />}
+          />
           <FormInput
             label="Your Wallet"
             prompt="Select primary wallet"
@@ -159,9 +181,7 @@ const SettingScreen = () => {
                     }}
                     key={index}
                     label={
-                      "$" +
-                      newAmount +
-                      " " +
+                      `${newAmount} DAI ` +
                       (percentageIncreaseFromLastAmount != 0
                         ? `(${percentageIncreaseFromLastAmount}% more)`
                         : "(same as last week)")
