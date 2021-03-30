@@ -10,11 +10,14 @@ export const FormInput = ({
   defaultValue,
   children,
   type,
+  inputType,
+  inputStyleType,
+  onSubmit,
   ...rest
 }: any) => {
   return (
     <div {...rest} className={"form-container " + type}>
-      <div className="form-input">
+      <div className={"form-input " + (inputStyleType == "fullWidth" ? "full-width" : "")}>
         <div className="left-container">
           <div className="form-label">
             <span>{label}</span>
@@ -25,9 +28,11 @@ export const FormInput = ({
         </div>
         <div className="right-container">
           <InputBox
+            type={inputType}
             prefix={prefix}
             defaultValue={defaultValue}
             placeholder={placeholder}
+            onSubmit={onSubmit}
           />
         </div>
       </div>
