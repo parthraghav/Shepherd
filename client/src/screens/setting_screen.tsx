@@ -7,7 +7,14 @@ import { PaymentIcon } from "@components/payment_icon";
 import { useHistory, useLocation } from "react-router-dom";
 import { TimelineMax, TweenMax } from "gsap";
 import { logout } from "@core/auth";
-import { getMyInfo, updateMyDemonstratedNeedAmount, updateMyName, updateMyWeeklyDonationAmount } from "@core/user";
+import {
+  getMyInfo,
+  updateMyDemonstratedNeedAmount,
+  updateMyName,
+  updateMyWalletAddress,
+  updateMyWeeklyDonationAmount,
+} from "@core/user";
+import Web3 from "web3";
 
 const WelcomeVivianBox = ({ onCTAClick, userInfo, ...rest }: any) => {
   const fullName = userInfo?.name ?? "";
@@ -24,6 +31,7 @@ const WelcomeVivianBox = ({ onCTAClick, userInfo, ...rest }: any) => {
 
 const SettingScreen = () => {
   const [myInfo, setMyInfo] = useState<any>();
+  const [availableAccounts, setAvailableAccounts] = useState<any>(["0x0"]);
   const history = useHistory();
   const location: any = useLocation();
   const settingScreenRef: any = useRef<HTMLDivElement>();
@@ -60,10 +68,17 @@ const SettingScreen = () => {
   }, [TweenMax, location]);
 
   useEffect(() => {
-    (async function () {
+    (async function fetchUserInfo() {
       const fetchedUserInfo = await getMyInfo();
       setMyInfo(fetchedUserInfo);
       console.log(fetchedUserInfo);
+    })();
+
+    (async function loadBlockchainData() {
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:3000");
+      const accounts = await web3.eth.getAccounts();
+      setAvailableAccounts([...availableAccounts, ...accounts]);
+      console.log(accounts);
     })();
   }, []);
 
@@ -75,7 +90,21 @@ const SettingScreen = () => {
         </div>
         <WelcomeVivianBox userInfo={myInfo} onCTAClick={() => goToHomeScreen()} />
         <div className="form-group">
-          <FormButton label="Payment Method" prompt="Ending in 3982" hint={<PaymentIcon type="mastercard" />} />
+          <FormButton label="Your Balance" prompt="534.88 DAI" hint={<PaymentIcon type="dai" />} />
+          <FormInput
+            label="Your Wallet"
+            prompt="Select primary wallet"
+            hint={<PaymentIcon type="dai" />}
+            placeholder="Click to update account"
+            inputStyleType="fullWidth"
+            inputType="select"
+            defaultValue={myInfo?.walletAddress}
+            valueList={availableAccounts}
+            onChange={async (newAccount: string) => {
+              await updateMyWalletAddress(newAccount);
+              window.location.reload();
+            }}
+          />
 
           <FormInput
             label="Your Need This Week"
@@ -98,6 +127,7 @@ const SettingScreen = () => {
             </span>
           </div>
           <FormInput
+            id="weeklyDonationAmountInput"
             label="Your Donation"
             prompt="Choose a weekly donation"
             prefix="USD"
@@ -112,10 +142,33 @@ const SettingScreen = () => {
             }}
           />
           <div className="radio-button-group">
-            <RadioButton label="$5 (same as last week)" />
-            <RadioButton label="$7.5 (50% more)" />
-            <RadioButton label="$10 (100% more)" />
-            <RadioButton label="$20 (300% more)" />
+            {Array(6)
+              .fill(0)
+              .map((_: any, index: number) => {
+                const initAmount = myInfo?.weeklyDonationAmount ?? 0;
+                const newAmount = initAmount + 2.5 * index * index;
+                const percentageIncreaseFromLastAmount = ((newAmount - initAmount) * 100) / initAmount;
+                return (
+                  <RadioButton
+                    onClick={() => {
+                      // UNSAFE OPERATION (Calling getElementById is not a good practice)
+                      const weeklyDonationAmountInput: any = document.getElementById("weeklyDonationAmountInput");
+                      if (!weeklyDonationAmountInput) return;
+                      weeklyDonationAmountInput.value = newAmount;
+                      console.log();
+                    }}
+                    key={index}
+                    label={
+                      "$" +
+                      newAmount +
+                      " " +
+                      (percentageIncreaseFromLastAmount != 0
+                        ? `(${percentageIncreaseFromLastAmount}% more)`
+                        : "(same as last week)")
+                    }
+                  />
+                );
+              })}
           </div>
 
           <FormInput
