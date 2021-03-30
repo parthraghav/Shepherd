@@ -41,3 +41,12 @@ export const updateMyDemonstratedNeedAmount = async (newAmount: number) => {
     demonstratedNeedAmountUpdatedAt: app.firestore.FieldValue.serverTimestamp(),
   });
 };
+
+export const updateMyWalletAddress = async (newWalletAddress: string) => {
+  const uid = FirebaseApp.auth.currentUser?.uid;
+  if (!uid) return;
+  const userRef = FirebaseApp.db.collection("users").doc(uid);
+  await userRef.update({
+    walletAddress: newWalletAddress,
+  });
+};
