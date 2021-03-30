@@ -7,7 +7,7 @@ import { PaymentIcon } from "@components/payment_icon";
 import { useHistory, useLocation } from "react-router-dom";
 import { TimelineMax, TweenMax } from "gsap";
 import { logout } from "@core/auth";
-import { getMyInfo, updateMyName, updateMyWeeklyDonationAmount } from "@core/user";
+import { getMyInfo, updateMyDemonstratedNeedAmount, updateMyName, updateMyWeeklyDonationAmount } from "@core/user";
 
 const WelcomeVivianBox = ({ onCTAClick, userInfo, ...rest }: any) => {
   const fullName = userInfo?.name ?? "";
@@ -76,13 +76,20 @@ const SettingScreen = () => {
         <WelcomeVivianBox userInfo={myInfo} onCTAClick={() => goToHomeScreen()} />
         <div className="form-group">
           <FormButton label="Payment Method" prompt="Ending in 3982" hint={<PaymentIcon type="mastercard" />} />
+
           <FormInput
             label="Your Need This Week"
             prompt="What’s your need?"
             prefix="USD"
-            placeholder="$56"
+            placeholder="123"
             inputStyleType="fullWidth"
-            defaultValue="$56"
+            inputType="number"
+            defaultValue={myInfo?.demonstratedNeedAmount}
+            onSubmit={async (newAmount: string) => {
+              const amount = parseFloat(newAmount);
+              await updateMyDemonstratedNeedAmount(amount);
+              window.location.reload();
+            }}
           />
           <div className="form-paragraph">
             <span>
