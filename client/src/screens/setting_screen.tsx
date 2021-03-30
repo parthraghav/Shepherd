@@ -131,7 +131,7 @@ const SettingScreen = () => {
           <FormInput
             label="Your Need This Week"
             prompt="What’s your need?"
-            prefix="USD"
+            prefix="DAI"
             placeholder="123"
             inputStyleType="fullWidth"
             inputType="number"
@@ -152,7 +152,7 @@ const SettingScreen = () => {
             id="weeklyDonationAmountInput"
             label="Your Donation"
             prompt="Choose a weekly donation"
-            prefix="USD"
+            prefix="DAI"
             placeholder="123"
             inputStyleType="fullWidth"
             inputType="number"

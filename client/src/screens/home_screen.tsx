@@ -68,7 +68,7 @@ const HomeScreen = () => {
           <FormInput
             label="Next week's Donation"
             prompt="50%+ last week"
-            prefix="USD"
+            prefix="DAI"
             placeholder="$7.5"
             defaultValue="$7.5"
             type="choose-next-donation"
