@@ -1,5 +1,6 @@
 import { FirebaseApp } from "../firebase";
 import app from "firebase/app";
+import { enroll } from "./redistributor";
 
 export const getMyInfo = async () => {
   const uid = FirebaseApp.auth.currentUser?.uid;
@@ -49,4 +50,32 @@ export const updateMyWalletAddress = async (newWalletAddress: string) => {
   await userRef.update({
     walletAddress: newWalletAddress,
   });
+};
+
+export const markMeEnrolled = async () => {
+  const uid = FirebaseApp.auth.currentUser?.uid;
+  if (!uid) return;
+  const userRef = FirebaseApp.db.collection("users").doc(uid);
+  await userRef.update({
+    isEnrolled: true,
+  });
+};
+
+export const enrollMe = async () => {
+  const myInfo = await getMyInfo();
+  if (!myInfo) {
+    console.error("Enrollment failed because the user is not logged in.");
+    return;
+  }
+  if (myInfo.isEnrolled) {
+    console.error("Enrollment failed because the user is already marked as enrolled.");
+    return;
+  }
+  if (["0x0", undefined, ""].includes(myInfo.walletAddress)) {
+    console.error("Enrollment aborted because the wallet address is bad.");
+    return;
+  }
+  const result = await enroll(myInfo.walletAddress, myInfo.name);
+  if (result) markMeEnrolled();
+  else console.error("Enrollment failed due to an error");
 };
