@@ -8,6 +8,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { TimelineMax, TweenMax } from "gsap";
 import { logout } from "@core/auth";
 import {
+  enrollMe,
   getMyInfo,
   updateMyDemonstratedNeedAmount,
   updateMyName,
@@ -197,10 +198,13 @@ const SettingScreen = () => {
           />
         </div>
         <div className="setting-button-group">
-          <Button label="Need help?" />
-          <Button label="How does it work?" />
-          <Button label="Contribute" />
-          <Button label="Legal Information" />
+          <Button
+            label="Need help?"
+            onClick={() => {
+              window.location.href = `mailto:support@shepherd.so?subject=Issue | ${myInfo.name}-${myInfo.uid}`;
+            }}
+          />
+          <Button label="Enroll" onClick={() => enrollMe()} />
           <Button label="Logout" onClick={() => logout()} />
         </div>
       </div>
