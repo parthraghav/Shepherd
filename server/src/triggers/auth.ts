@@ -17,6 +17,7 @@ export const onCreate = async (user: admin.auth.UserRecord) => {
       email: user.email,
       photoUrl: user.photoURL,
       isDisabled: user.disabled,
+      isUserEnrolled: false,
       phoneNumber: user.phoneNumber,
       didSetupPaymentMethod: false,
       demonstratedNeedAmount: 0,
