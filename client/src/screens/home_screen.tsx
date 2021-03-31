@@ -3,13 +3,13 @@ import Screen from "./screen";
 import "./home_screen.css";
 import { FormInput, Logo, RadioButton, TransactionBox, VivianBox } from "@components";
 import { faSmile } from "@fortawesome/free-solid-svg-icons";
-import { Transactions } from "@data";
 import { Transaction } from "@models";
 import { TransactionBottomSheet } from "@components/transaction_bottom_sheet";
 import { useHistory, useLocation } from "react-router-dom";
 import { TimelineMax, TweenMax } from "gsap";
 import { getBaseInfo } from "@core/base";
 import { getDisplayableNumber } from "@core/utils";
+import { getMyTransactions } from "@core/transaction";
 
 const SummaryVivianBox = ({ onCTAClick, ...rest }: any) => {
   const [baseInfo, setBaseInfo] = useState<any>();
@@ -37,7 +37,7 @@ const SummaryVivianBox = ({ onCTAClick, ...rest }: any) => {
 
 const HomeScreen = () => {
   const [focusedTransaction, setFocusedTransaction] = useState<Transaction | null>();
-
+  const [myTransactions, setMyTransactions] = useState<Transaction[]>([]);
   const [isModalFocused, setModalFocus] = useState<boolean>(false);
   const history = useHistory();
   const location: any = useLocation();
@@ -73,6 +73,14 @@ const HomeScreen = () => {
     }
   }, [TweenMax, location]);
 
+  useEffect(() => {
+    (async function () {
+      const myTransactions = await getMyTransactions();
+      setMyTransactions(myTransactions);
+      console.log(myTransactions);
+    })();
+  }, []);
+
   return (
     <Screen>
       <div ref={homeScreenRef} className="home-screen" style={{ display: "none" }}>
@@ -97,9 +105,9 @@ const HomeScreen = () => {
             </div>
           </FormInput>
 
-          {Transactions.map(transaction => (
+          {myTransactions.map(transaction => (
             <TransactionBox
-              key={transaction.uuid}
+              key={transaction.id}
               data={transaction}
               onClick={() => {
                 setFocusedTransaction(transaction);
