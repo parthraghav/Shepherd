@@ -8,16 +8,32 @@ import { Transaction } from "@models";
 import { TransactionBottomSheet } from "@components/transaction_bottom_sheet";
 import { useHistory, useLocation } from "react-router-dom";
 import { TimelineMax, TweenMax } from "gsap";
+import { getBaseInfo } from "@core/base";
+import { getDisplayableNumber } from "@core/utils";
 
-const SummaryVivianBox = ({ onCTAClick, ...rest }: any) => (
-  <VivianBox {...rest} icon={faSmile} onCTAClick={onCTAClick} primaryColor="1">
-    <span className="text">We have all received</span>
-    <div className="heading summary-heading">
-      <span className="currency">USD</span>
-      <span className="amount">3,490.38</span>
-    </div>
-  </VivianBox>
-);
+const SummaryVivianBox = ({ onCTAClick, ...rest }: any) => {
+  const [baseInfo, setBaseInfo] = useState<any>();
+  useEffect(() => {
+    (async function fetchBaseInfo() {
+      const fetchedBaseInfo = await getBaseInfo();
+      console.log(fetchedBaseInfo);
+      setBaseInfo(fetchedBaseInfo);
+    })();
+  }, []);
+  return (
+    <VivianBox {...rest} icon={faSmile} onCTAClick={onCTAClick} primaryColor="1">
+      {baseInfo != null && (
+        <>
+          <span className="text">We have all received</span>
+          <div className="heading summary-heading">
+            <span className="currency">DAI</span>
+            <span className="amount">{getDisplayableNumber(baseInfo?.totalRedistributedSum ?? 0)}</span>
+          </div>
+        </>
+      )}
+    </VivianBox>
+  );
+};
 
 const HomeScreen = () => {
   const [focusedTransaction, setFocusedTransaction] = useState<Transaction | null>();
