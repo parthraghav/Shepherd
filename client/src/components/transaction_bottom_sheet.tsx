@@ -31,7 +31,7 @@ export const TransactionBottomSheet = ({ transaction, close, ...rest }: any) => 
             </div>
           </div>
           <div className="transaction-charge">
-            <span>{currencySymbol}</span>
+            <span>{currencySymbol} </span>
             <span>{transaction.amount}</span>
           </div>
         </div>

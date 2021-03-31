@@ -4,17 +4,13 @@ import { getCurrencySymbol, getDisplayableTime } from "@core/utils";
 export const TransactionBox = ({ data: transaction, ...rest }: any) => {
   const displayableTime = getDisplayableTime(transaction.timestamp);
   const currencySymbol = getCurrencySymbol(transaction.currency);
-  const transactionDescriptor =
-    transaction.type == "Donated" ? "You → Public" : "Public → You";
+  const transactionDescriptor = transaction.type == "Donated" ? "You → Public" : "Public → You";
   return (
     <div
       {...rest}
       className="transaction-box"
       style={{
-        backgroundColor:
-          transaction.type == "Donated"
-            ? "var(--primary-1)"
-            : "var(--primary-2)",
+        backgroundColor: transaction.type == "Donated" ? "var(--primary-1)" : "var(--primary-2)",
       }}
     >
       <div className="transaction-info">
@@ -26,7 +22,7 @@ export const TransactionBox = ({ data: transaction, ...rest }: any) => {
         </div>
       </div>
       <div className="transaction-amount">
-        <span>{currencySymbol}</span>
+        <span>{currencySymbol} </span>
         <span>{transaction.amount}</span>
       </div>
     </div>
