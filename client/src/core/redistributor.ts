@@ -9,6 +9,18 @@ export const donate = async (amount: number) => {
     await redistributor.methods.donate(amount).call();
     return true;
   } catch (e) {
+    console.error(e);
+    return false;
+  }
+};
+
+export const enroll = async (walletAddress: string, userName: string) => {
+  try {
+    const redistributor = new web3.eth.Contract(Redistributor.abi, redistributorContractAddress);
+    await redistributor.methods.enroll(walletAddress, userName).call();
+    return true;
+  } catch (e) {
+    console.error(e);
     return false;
   }
 };
