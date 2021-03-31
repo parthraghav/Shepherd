@@ -19,7 +19,7 @@ export const doRecordTransaction = async () => {
       emittedAt: 1615481380627,
       recordedAt: 1615481380627,
       amount: 100,
-      currency: "DAU",
+      currency: "DAI",
       analytics: {
         isFirstOfType: true,
         beneficiaryCount: 15,
