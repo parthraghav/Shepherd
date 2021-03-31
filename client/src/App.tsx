@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { PrivateRoute, ProxyRoute, PublicOnlyRoute } from "./routes";
-import { HomeScreen, SettingScreen, WelcomeScreen } from "./screens";
+import { HomeScreen, MetamaskScreen, OnboardingScreen, SettingScreen, WelcomeScreen } from "./screens";
 import Screen from "./screens/screen";
 import { Transition } from "react-transition-group";
 import "./theme/styles.css";
@@ -14,6 +14,8 @@ const routes = [
   { path: "/welcome", component: WelcomeScreen, routeType: PublicOnlyRoute },
   { path: "/home", component: HomeScreen, routeType: PrivateRoute },
   { path: "/settings", component: SettingScreen, routeType: PrivateRoute },
+  { path: "/metamask", component: MetamaskScreen, routeType: PrivateRoute },
+  { path: "/onboarding", component: OnboardingScreen, routeType: PrivateRoute },
 ];
 
 enum UserStatus {
