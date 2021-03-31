@@ -1,34 +1,22 @@
 import React from "react";
 
-import {
-  getCurrencySymbol,
-  getDisplayableDate,
-  getDisplayableNumber,
-} from "@core/utils";
+import { getCurrencySymbol, getDisplayableDate, getDisplayableNumber } from "@core/utils";
 import { BottomSheet } from "./bottom_sheet";
+import { TransactionType } from "@models/transaction";
 
-export const TransactionBottomSheet = ({
-  transaction,
-  close,
-  ...rest
-}: any) => {
-  const transactionDate = getDisplayableDate(transaction.timestamp);
+export const TransactionBottomSheet = ({ transaction, close, ...rest }: any) => {
+  const transactionDate = getDisplayableDate(transaction.emittedAt);
   const currencySymbol = getCurrencySymbol(transaction.currency);
-  const transactionDescriptor =
-    transaction.type == "Donated" ? "You → Public" : "Public → You";
-  const { summary } = transaction;
+  const transactionDescriptor = transaction.type == TransactionType.Donation ? "You → Public" : "Public → You";
+  const { analytics } = transaction;
   return (
     <BottomSheet
       close={close}
-      primaryColor={
-        transaction.type == "Donated" ? "var(--primary-1)" : "var(--primary-2)"
-      }
+      primaryColor={transaction.type == TransactionType.Donation ? "var(--primary-1)" : "var(--primary-2)"}
     >
       <div className="transaction-bottom-sheet">
         <div className="transaction-descriptor">
-          <span>
-            {transaction.type == "Donated" ? "You donated!" : "You received!"}
-          </span>
+          <span>{transaction.type == TransactionType.Donation ? "You donated!" : "You received!"}</span>
         </div>
         <div className="transaction-info">
           <div className="transaction-info-details">
@@ -39,7 +27,7 @@ export const TransactionBottomSheet = ({
               <span>{transactionDescriptor}</span>
             </div>
             <div className="transaction-uuid">
-              <span>{transaction.uuid.substr(0, 20)}</span>
+              <span>{transaction.id.substr(0, 20)}</span>
             </div>
           </div>
           <div className="transaction-charge">
@@ -48,44 +36,40 @@ export const TransactionBottomSheet = ({
           </div>
         </div>
         <div className="transaction-summary">
-          {summary.redistributionCount != undefined && (
+          {analytics.beneficiaryCount != undefined && (
             <div className="summary-row">
               <span>🌎</span>
               <span>
-                The donation was redistributed to{" "}
-                <b>{getDisplayableDate(summary.redistributionCount)} people</b>.
+                Your donation was redistributed to <b>{getDisplayableNumber(analytics.beneficiaryCount)} people</b>.
               </span>
             </div>
           )}
-          {summary.donationMatchCount != undefined && (
-            <div className="summary-row">
-              <span>🙅‍♀️</span>
-              <span>
-                <b>{getDisplayableNumber(summary.donationMatchCount)} people</b>{" "}
-                matched your donation.
-              </span>
-            </div>
-          )}
-          {summary.isFirstOfKind && (
+          {analytics.isFirstOfType && (
             <div className="summary-row">
               <span>❤️</span>
               <span>
-                {transaction.type == "Donated"
+                {transaction.type == TransactionType.Donation
                   ? "This was your first donation!"
                   : "You received your first redistribution!"}
               </span>
             </div>
           )}
-          {summary.donorCount != undefined && (
+          {analytics.remitterCount != undefined && (
             <div className="summary-row">
-              <span>🌎</span>
-              <span>
-                <b>{getDisplayableNumber(summary.donorCount)} people </b>
-                donated for you.
-              </span>
+              <span>✊</span>
+              {transaction.type == TransactionType.Donation ? (
+                <span>
+                  <b>{getDisplayableNumber(analytics.remitterCount)} people</b> matched your donation.
+                </span>
+              ) : (
+                <span>
+                  <b>{getDisplayableNumber(analytics.remitterCount)} people </b>
+                  donated for you.
+                </span>
+              )}
             </div>
           )}
-          {summary.didMeetDemonstratedNeed && (
+          {analytics.didMeetDemonstratedNeed && (
             <div className="summary-row">
               <span>🎉</span>
               <span>You met your demonstrated need!</span>
