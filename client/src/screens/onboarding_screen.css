@@ -1,0 +1,25 @@
+.onboarding-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--green);
+}
+
+.onboarding-header {
+  text-align: center;
+  padding: 1em;
+  border-radius: 0em 0em 1em 1em;
+  background: white;
+}
+.onboarding-header * {
+  margin: 0.3em;
+}
+.onboarding-header p {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.onboarding-footer {
+  text-align: center;
+  padding: 1em;
+}
