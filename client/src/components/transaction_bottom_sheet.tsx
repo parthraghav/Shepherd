@@ -7,16 +7,17 @@ import { TransactionType } from "@models/transaction";
 export const TransactionBottomSheet = ({ transaction, close, ...rest }: any) => {
   const transactionDate = getDisplayableDate(transaction.emittedAt);
   const currencySymbol = getCurrencySymbol(transaction.currency);
-  const transactionDescriptor = transaction.type == TransactionType.Donation ? "You → Public" : "Public → You";
+  const transactionType = transaction.type == 0 ? TransactionType.Donation : TransactionType.Redistribution;
+  const transactionDescriptor = transactionType == TransactionType.Donation ? "You → Public" : "Public → You";
   const { analytics } = transaction;
   return (
     <BottomSheet
       close={close}
-      primaryColor={transaction.type == TransactionType.Donation ? "var(--primary-1)" : "var(--primary-2)"}
+      primaryColor={transactionType == TransactionType.Donation ? "var(--primary-1)" : "var(--primary-2)"}
     >
       <div className="transaction-bottom-sheet">
         <div className="transaction-descriptor">
-          <span>{transaction.type == TransactionType.Donation ? "You donated!" : "You received!"}</span>
+          <span>{transactionType == TransactionType.Donation ? "You donated!" : "You received!"}</span>
         </div>
         <div className="transaction-info">
           <div className="transaction-info-details">
@@ -48,7 +49,7 @@ export const TransactionBottomSheet = ({ transaction, close, ...rest }: any) => 
             <div className="summary-row">
               <span>❤️</span>
               <span>
-                {transaction.type == TransactionType.Donation
+                {transactionType == TransactionType.Donation
                   ? "This was your first donation!"
                   : "You received your first redistribution!"}
               </span>
@@ -57,7 +58,7 @@ export const TransactionBottomSheet = ({ transaction, close, ...rest }: any) => 
           {analytics.remitterCount != undefined && (
             <div className="summary-row">
               <span>✊</span>
-              {transaction.type == TransactionType.Donation ? (
+              {transactionType == TransactionType.Donation ? (
                 <span>
                   <b>{getDisplayableNumber(analytics.remitterCount)} people</b> matched your donation.
                 </span>

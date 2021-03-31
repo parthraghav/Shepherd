@@ -1,16 +1,18 @@
 import React from "react";
 import { getCurrencySymbol, getDisplayableTime } from "@core/utils";
+import { TransactionType } from "@models/transaction";
 
 export const TransactionBox = ({ data: transaction, ...rest }: any) => {
   const displayableTime = getDisplayableTime(transaction.timestamp);
   const currencySymbol = getCurrencySymbol(transaction.currency);
-  const transactionDescriptor = transaction.type == "Donated" ? "You → Public" : "Public → You";
+  const transactionType = transaction.type == 0 ? TransactionType.Donation : TransactionType.Redistribution;
+  const transactionDescriptor = transactionType == TransactionType.Donation ? "You → Public" : "Public → You";
   return (
     <div
       {...rest}
       className="transaction-box"
       style={{
-        backgroundColor: transaction.type == "Donated" ? "var(--primary-1)" : "var(--primary-2)",
+        backgroundColor: transactionType == TransactionType.Donation ? "var(--primary-1)" : "var(--primary-2)",
       }}
     >
       <div className="transaction-info">

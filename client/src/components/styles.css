@@ -347,6 +347,7 @@
 
 /*styled-radio-button.tsx */
 .styled-radio-button {
+  transition: all 0.4s cubic-bezier(0.23, 1.5, 0.32, 1);
   background: var(--primary-1);
   color: var(--primary-text-color);
   display: flex;
@@ -360,5 +361,16 @@
   width: fit-content;
 }
 .styled-radio-button.selected {
+}
+
+element.style {
+  user-select: auto;
+}
+.styled-radio-button:focus,
+.styled-radio-button:hover,
+.styled-radio-button:active {
   background: var(--primary-2);
+
+  transform: scale(0.9);
+  outline: 0;
 }
