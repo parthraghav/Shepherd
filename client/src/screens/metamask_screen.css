@@ -1,0 +1,25 @@
+.metamask-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--green);
+}
+
+.metamask-header {
+  text-align: center;
+  padding: 1em;
+  border-radius: 0em 0em 1em 1em;
+  background: white;
+}
+.metamask-header * {
+  margin: 0.3em;
+}
+.metamask-header p {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.metamask-footer {
+  text-align: center;
+  padding: 1em;
+}
