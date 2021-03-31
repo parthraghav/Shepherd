@@ -1,12 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { TweenMax, TimelineMax } from "gsap";
 
-export const BottomSheet = ({
-  children,
-  close,
-  primaryColor,
-  ...rest
-}: any) => {
+export const BottomSheet = ({ children, close, primaryColor, ...rest }: any) => {
   const overlayRef: any = useRef<HTMLDivElement>();
   const bottomSheetRef: any = useRef<HTMLDivElement>();
 
@@ -18,16 +13,16 @@ export const BottomSheet = ({
         {
           opacity: 0,
         },
-        0
+        0,
       );
     }
     if (bottomSheetRef.current != null) {
       timeline.to(
         bottomSheetRef.current,
         {
-          transform: "translate(0,100%) scale(0.9)",
+          yPercent: 100,
         },
-        0
+        0,
       );
     }
   };
@@ -43,7 +38,7 @@ export const BottomSheet = ({
         },
         {
           opacity: 0.94,
-        }
+        },
       );
     }
     if (bottomSheetRef.current != null) {
@@ -52,11 +47,11 @@ export const BottomSheet = ({
         bottomSheetRef.current,
         0.3,
         {
-          transform: "translate(0,100%) scale(0.9)",
+          yPercent: 100,
         },
         {
-          transform: "translate(0,0) scale(1)",
-        }
+          yPercent: 0,
+        },
       );
     }
   }, [TweenMax]);
@@ -69,11 +64,7 @@ export const BottomSheet = ({
         onClick={() => closeWithAnimate()}
         style={{ display: "none" }}
       ></div>
-      <div
-        ref={bottomSheetRef}
-        className="bottom-sheet"
-        style={{ backgroundColor: primaryColor, display: "none" }}
-      >
+      <div ref={bottomSheetRef} className="bottom-sheet" style={{ backgroundColor: primaryColor, display: "none" }}>
         {children}
       </div>
     </div>
